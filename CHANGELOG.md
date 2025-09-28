@@ -1,2 +1,3 @@
-# 1.0.1
-- Add a cursed config option: AllEntitiesLightest
+# 1.0.2
+- Some technical changes
+- No changes for players
