@@ -3,6 +3,7 @@ package me.kall.lightbind.mixin;
 import me.jellysquid.mods.sodium.client.model.light.EntityLighter;
 import me.jellysquid.mods.sodium.client.render.entity.EntityLightSampler;
 import me.kall.lightbind.LightBind;
+import me.kall.lightbind.api.ToLight;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,9 +19,8 @@ public class EntityLighterMixin {
             cir.setReturnValue(240);
             return;
         }
-        if (LightBind.BIND_PAIRS.isEmpty()) return;
-        int bind = LightBind.BIND_PAIRS.getOrDefault(entity.getType().getRegistryName(), -1);
-        if (bind == -1) return;
-        cir.setReturnValue(bind);
+        int bindLight = ((ToLight)entity.getType()).bind$getLight();
+        if (bindLight == -1) return;
+        cir.setReturnValue(bindLight);
     }
 }
