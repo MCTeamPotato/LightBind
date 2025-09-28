@@ -7,7 +7,7 @@ import me.kall.jsonate.api.JsonConfig;
 import me.kall.lightbind.api.ToLight;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -52,10 +52,10 @@ public final class LightBind {
     }
 
     public LightBind() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
     }
 
-    public void onCommonSetup(@NotNull FMLCommonSetupEvent event) {
+    public void setup(@NotNull FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             if (LIGHTEST) return;
             Optional.ofNullable(BIND_PAIRS).ifPresent(pairs -> pairs.forEach((id, light) -> Optional.ofNullable(((ToLight)ForgeRegistries.ENTITIES.getValue(id))).ifPresent(toLight -> toLight.bind$setLight(light))));
