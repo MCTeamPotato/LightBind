@@ -17,10 +17,9 @@ public class EntityLighterMixin {
     private static <T extends Entity> void bind$getLight(EntityLightSampler<T> lighter, @NotNull T entity, float tickDelta, CallbackInfoReturnable<Integer> cir) {
         if (LightBind.LIGHTEST) {
             cir.setReturnValue(240);
-            return;
+        } else {
+            int bindLight = ((ToLight)entity.getType()).bind$getLight();
+            if (bindLight != -1) cir.setReturnValue(bindLight);
         }
-        int bindLight = ((ToLight)entity.getType()).bind$getLight();
-        if (bindLight == -1) return;
-        cir.setReturnValue(bindLight);
     }
 }
